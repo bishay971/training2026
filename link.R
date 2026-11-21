@@ -8,13 +8,14 @@
 # 
 
 library(googlesheets4)
+library(dplyr)
 
 gs4_deauth()
 
 training_links <- 
-  read_sheet("https://docs.google.com/spreadsheets/d/1d7o0b4Ew7ntXdLp7hWgg_SxF9ZQOQih8ornQY61XGYY/edit?usp=sharing") |> 
+  read_sheet("https://docs.google.com/spreadsheets/d/1pyxgtlvdcukg0cJZyus3T6iBah-RYRFF-XOLUixSdhI/edit?gid=1881388254#gid=1881388254") |> 
   select(link2, uid)
 
 training_links
 
-save(training_links, file = "/Users/bjungbogati/Documents/R/projects/training25/demo25/link.rda")
+save(training_links, file = "/Volumes/Disk Bishwas/R Training/training2026/link.rda")
