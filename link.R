@@ -1,7 +1,7 @@
 # 
 # 
 # 
-# txt <- as.data.frame(paste0("https://t25.netlify.app/", list.files("zip")))
+# txt <- as.data.frame(paste0("https://t026.netlify.app/", list.files("zip")))
 # 
 # 
 # writexl::write_xlsx(txt, "link.xlsx")
