@@ -18,4 +18,4 @@ training_links <-
 
 training_links
 
-save(training_links, file = "/Volumes/Disk Bishwas/R Training/training2026/link.rda")
+save(training_links, file = "/Volumes/Disk Bishwas/R Training/training2026/public/link.rda")
