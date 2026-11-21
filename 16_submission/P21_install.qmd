@@ -1,0 +1,15 @@
+---
+title: "Download and Install"
+format: html
+editor: visual
+---
+
+## 
+
+**For Windows use Link:**
+
+<https://dthfq9xldm1jq.cloudfront.net/site/Pinnacle%2021%20Community%20Setup%204.1.0.exe>
+
+For Mac:
+
+<https://dthfq9xldm1jq.cloudfront.net/site/Pinnacle%2021%20Community-4.1.0.dmg>

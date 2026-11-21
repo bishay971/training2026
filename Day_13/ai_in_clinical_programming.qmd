@@ -1,0 +1,433 @@
+---
+title: "AI in Clinical Statistical Programming"
+subtitle: "Session 9 - From SAS to R, with AI as a Co-Pilot"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format:
+  revealjs:
+    slide-number: true
+    toc: true
+    toc-depth: 1
+    incremental: false
+    theme: simple
+    code-line-numbers: true
+editor: visual
+---
+
+## Session Roadmap
+
+1.  Introduction to AI and LLM
+2.  Why clinical programmers should learn AI now
+3.  Limitations of AI in the clinical domain
+4.  Ethical and responsible use of AI at workplace
+5.  Enhancing your career through AI literacy
+6.  AI-powered productivity hacks
+7.  AI for managers and team leads
+
+# 1. Introduction to AI and LLM
+
+## What is AI, really?
+
+- **AI (Artificial Intelligence)** - broad field: machines performing tasks that normally need human intelligence.
+- **Machine Learning (ML)** - subset of AI; models learn patterns from data instead of hard-coded rules.
+- **LLM (Large Language Model)** - model trained on huge text corpora to predict the *next token*; powers ChatGPT, Claude, Copilot, Gemini.
+- Clinical relevance: LLMs are **text/code predictors**, not statistical engines - they don't "run" your ANOVA, they *write the code* that would.
+
+## How an LLM Answers a Programming Question
+
+```         
+You: "Convert this SAS PROC MEANS step to R using dplyr"
+
+LLM: 1. Reads your SAS code as text
+     2. Predicts most likely equivalent R tokens
+        based on patterns seen during training
+     3. Returns R code (no guarantee it ran or was tested!)
+```
+
+::: callout-note
+LLM output is a **plausible-looking answer**, not a **verified** one. Same discipline as reviewing a junior programmer's code applies - always test.
+:::
+
+## SAS Mindset vs LLM Mindset
+
+| SAS habit | LLM-assisted R habit |
+|----|----|
+| Look up PROC syntax in SAS docs | Ask LLM to draft `dplyr`/`base R` equivalent |
+| Copy a working macro as template | Ask LLM to explain unfamiliar `tidyverse` syntax |
+| Debug via `LOG` window | Ask LLM to explain an R error message |
+| Peer review before QC | **AI is not QC** - peer/validator review still required |
+
+# 2. Why Clinical Programmers Should Learn AI Now
+
+## The Industry Shift
+
+- Sponsors and CROs are piloting AI for **SDTM/ADaM mapping suggestions**, **TLF shell drafting**, and **SAS-to-R migration** (many shops moving off legacy SAS licensing toward R/Python).
+- Regulatory bodies (FDA, PMDA) are actively discussing AI use in submissions - programmers who understand AI capabilities/limits will shape internal SOPs, not just follow them.
+- R adoption is accelerating (`{admiral}`, `{pharmaverse}`) - AI tools dramatically shorten the **syntax-lookup** phase of learning a new language.
+
+## CDISC 360i - Standards-Driven Automation
+
+- **CDISC 360i**: industry program for **end-to-end automation** - protocol to SDTM to ADaM to analysis results - driven by **machine-readable metadata**, not PDF specs humans re-key into program code.
+- **Phase 1** (done): study design to SDTM generation + conformance checks.
+- **Phase 2** (2026 kickoff): ADaM to analysis results to **TLF generation**. This is the phase that touches your daily work next.
+- Goal: a shell/spec you can **execute**, not just read.
+
+## ARS & ARD: Standardizing "What a Table Means"
+
+- **ARS (Analysis Results Standard)** - metadata describing *what* an analysis is (population, endpoint, method, display) - separate from *how* it's coded.
+- **ARD (Analysis Results Dataset)** - standardized dataset holding the *actual result numbers*, traceable back to ADaM.
+- Payoff: a TLF becomes **metadata + engine**, not one bespoke SAS/R program per table - swap the engine (SAS to R to AI-assisted) without hand-rewriting 200 shells.
+
+::: callout-important
+Real automation wave here isn't "AI writes code faster" - it's **"the table becomes machine-executable."** AI helps author ARS metadata and QC scripts; ARS/ARD is what makes that reusable at scale.
+:::
+
+Sources: [CDISC 360i](https://www.cdisc.org/standards/cdisc-360i) | [Analysis Results Standard](https://www.cdisc.org/standards/foundational/analysis-results-standard)
+
+## Example: Using AI to Bridge SAS to R
+
+**Prompt you might give an AI assistant:**
+
+```         
+I'm a SAS programmer learning R. In SAS I'd write:
+
+PROC MEANS DATA=adsl N MEAN STD MIN MAX;
+  VAR AGE;
+  CLASS TRT01P;
+RUN;
+
+Show me the dplyr equivalent, and explain each function.
+```
+
+**Typical AI-generated R (verify before trusting!):**
+
+``` r
+library(dplyr)
+
+adsl %>%
+  group_by(TRT01P) %>%
+  summarise(
+    n    = n(),
+    mean = mean(AGE, na.rm = TRUE),
+    sd   = sd(AGE, na.rm = TRUE),
+    min  = min(AGE, na.rm = TRUE),
+    max  = max(AGE, na.rm = TRUE)
+  )
+```
+
+- This is exactly how AI accelerates learning: **map a known concept (PROC MEANS) to an unknown syntax (dplyr verbs)**.
+- You still must confirm variable derivations, missing-data handling, and rounding match your SAP.
+
+## Beyond Translation: Spec to R, No Source Code Needed
+
+- **SAS to R translation** = input is *working code*, AI restates it in another syntax.
+- **Spec-to-code** = input is *plain-English or a written spec* (SAP text, ADaM spec row, TLF mock/shell) - no existing program at all. AI drafts the R **from the requirement**, not from prior code.
+- This is the bigger long-run use case: most of a programmer's day starts from a spec, not from someone else's script.
+- Higher hallucination risk than translation - there's no working reference to anchor against, so QC discipline matters *more*, not less.
+
+## Example: ADaM Spec to R Derivation
+
+**Prompt (spec text, not code):**
+
+```
+ADaM spec row:
+Variable: CHG   Label: Change from Baseline
+Derivation: AVAL - BASE, only where AVISITN > 0 and ABLFL != 'Y'
+Dataset: ADVS (BDS)
+
+Write the R/dplyr derivation.
+```
+
+**AI-drafted R (verify against full spec - LOCF/missing rules often untested here):**
+
+``` r
+advs <- advs %>%
+  mutate(CHG = if_else(AVISITN > 0 & ABLFL != "Y", AVAL - BASE, NA_real_))
+```
+
+- Same guardrail as always: AI drafted the *shape* of the rule - you confirm missing-data handling, `BASE` merge logic, and edge cases (e.g., unscheduled visits) against the full SAP.
+
+## Example: TLF Mock Shell to R Table Code
+
+- Paste a **shell/mock table image or text** (rows, columns, footnotes) instead of a SAS `PROC REPORT` step.
+- Ask: *"Draft `gtsummary`/`Tplyr` code to produce this shell from ADSL + ADAE."*
+- AI drafts the **table skeleton** (grouping, stats, footnote placement) - you still verify population filters, denominators, and rounding against SAP/mock.
+- This is the same spec to engine split CDISC 360i/ARS is standardizing (structured metadata in, table out) - LLMs are a *manual bridge* until ARS tooling matures industry-wide.
+
+## Real Case: Novo Nordisk - CSR Automation
+
+- **NovoScribe**: Novo Nordisk's system (MongoDB Atlas vector search + Amazon Bedrock/Claude + LangChain RAG) drafts **Clinical Study Reports**.
+- Result: CSR draft time **12 weeks down to about 10 minutes** - most of that 10 minutes is QA, not writing.
+- 30% of CSRs on this pipeline already, targeting 90% by year-end.
+- Mechanism = **RAG**, not "chat with GPT": vector-embed report templates and output snippets, retrieve the relevant chunks, then LLM assembles draft text with lineage back to source tables.
+
+::: callout-note
+Louise Lind Skov, Head of Content Digitalisation: *"We are doing it at scale, and with just a fraction of the resources we needed in the past."*
+:::
+
+## Why This Matters to Programmers, Not Just Medical Writers
+
+- CSR narrative pulls directly from **your TLFs/ADaM outputs** - if your outputs aren't traceable and well-structured, automation stalls at your desk.
+- Programmer's job shifts: less "type up the narrative," more **"make my output machine-readable and provenance-tracked."**
+- Pipeline problem, not a prompting problem - same mindset shift covered in Section 6.
+
+Source: [MongoDB - Novo Nordisk case study](https://www.mongodb.com/solutions/customer-case-studies/novo-nordisk)
+
+## Why Now, Specifically
+
+- Tools already inside your workflow: **GitHub Copilot in RStudio/Positron**, **Claude/ChatGPT in browser**, **posit workbench AI extensions**.
+- First-mover advantage: teams that build AI literacy now write better prompts, catch hallucinations faster, and become the "go-to" person during tool rollout.
+- Career insurance: as routine coding gets AI-assisted, value shifts to **validation, domain judgment, and regulatory reasoning** - skills AI can't replace.
+
+# 3. Limitations of AI in the Clinical Domain
+
+## Where AI Falls Short
+
+- **Hallucination** - AI can invent a plausible-looking `ADaM` variable name, `WHERE` clause, or CDISC codelist value that doesn't exist.
+- **No access to your data** - general-purpose AI has never seen your `ADSL`/`ADAE`, so it cannot verify derivations, only pattern-match syntax.
+- **Context window limits** - cannot review your entire SAP, define.xml, and 15 SAS programs at once; partial context means partial, sometimes wrong, answers.
+- **Statistical nuance** - AI may not correctly apply **ICH E9(R1) estimands**, **MedDRA coding conventions**, or sponsor-specific edit checks unless explicitly told.
+- **No accountability** - AI cannot sign off a program per 21 CFR Part 11 / GxP; a human remains the responsible programmer.
+
+## Example: A Believable but Wrong Answer
+
+**Prompt:** *"Write R code to derive `AVISITN` from `VISIT` for a standard ADaM BDS dataset."*
+
+**AI might confidently generate:**
+
+``` r
+adlb <- adlb %>%
+  mutate(AVISITN = case_when(
+    VISIT == "BASELINE" ~ 0,
+    VISIT == "WEEK 4"   ~ 4,
+    VISIT == "WEEK 8"   ~ 8,
+    TRUE ~ NA_real_
+  ))
+```
+
+- Looks correct - **but** your study might code Baseline as visit `-1`, use "Visit 2", or need `VISITNUM` carried from SDTM instead of re-derived.
+- **Lesson:** AI gives you a *starting template*, not the *company/study-specific rule*. Always cross-check against the SAP/aCRF/define.xml.
+
+## Practical Guardrails
+
+- Never paste **real subject-level data (PHI/PII)** into a public/consumer AI tool.
+- Treat AI output as **unvalidated code** - it must go through the same QC/independent programming process as human-written code.
+- Use AI for **syntax and drafting**, not for **final statistical decisions**.
+
+# 4. Ethical and Responsible Use of AI at Workplace
+
+## Core Principles
+
+- **Data confidentiality first** - no patient-level data, no unblinding information, no proprietary macros into public AI tools without company approval.
+- **Transparency** - disclose AI-assisted work per your company's SOP (many sponsors now require an "AI usage" note in program headers or validation docs).
+- **Attribution & IP** - AI-suggested code isn't automatically "clean"; check company policy on using AI-suggested code in regulated deliverables.
+- **Bias awareness** - LLMs trained on public code may embed patterns from non-clinical or outdated contexts; sanity-check against your SOPs.
+
+## A Simple Responsible-Use Checklist
+
+```         
+Before using AI output in a deliverable, ask:
+
+[ ] Did I avoid pasting any patient-level or unblinded data?
+[ ] Did I verify the logic against SAP / define.xml / aCRF?
+[ ] Did I test the code on non-production / dummy data first?
+[ ] Would I be comfortable explaining this code in a QC review?
+[ ] Does my company's AI-use policy allow this tool for this task?
+```
+
+::: callout-important
+If any box is unchecked - **do not** submit AI-touched code as final without further review.
+:::
+
+## Example: Safe vs Unsafe Prompting
+
+| Unsafe | Safe |
+|----|----|
+| "Here's our ADSL with real subject IDs, find data issues" | "Here's a *mock* dataset with the same structure, find data issues" |
+| "Summarize this unblinded interim result" | "Explain how to summarize a two-arm interim result using r `gtsummary`, in general" |
+| Pasting a proprietary validation macro | Asking for a *generic* pattern, then adapting it yourself |
+
+# 5. Enhancing Your Career Through AI Literacy
+
+## The Skill Stack of Tomorrow
+
+- **Layer 1 - Core programming**: SAS + R fluency (you're already building this).
+- **Layer 2 - Domain knowledge**: CDISC (SDTM/ADaM), ICH guidelines, TLF conventions.
+- **Layer 3 - AI literacy**: prompt engineering, output validation, tool selection.
+- Programmers who combine all three become **force multipliers** - reviewing/guiding AI output faster than others can write it from scratch.
+
+## Concrete Ways to Build AI Literacy
+
+- Practice **prompt engineering**: be specific about dataset structure, standard (SDTM/ADaM), and expected output format.
+- Keep a personal "prompt library" of proven prompts (e.g., "convert SAS macro to R function", "explain this dplyr error").
+- Learn to **spot hallucinations** - cross-check AI-suggested function names/arguments against actual R documentation (`?function_name`).
+- Contribute to open-source pharma packages (`{admiral}`, `{pharmaverse}`) - many now have AI-assisted contribution guides.
+
+## Example: A Reusable Prompt Template
+
+```         
+Role: You are helping a SAS programmer learn R for clinical trials.
+
+Context: Dataset = ADSL (ADaM), variables = USUBJID, TRT01P, AGE, SEX.
+
+Task: [describe task, e.g., "create a Table 1 demographic summary"]
+
+Constraints:
+- Use tidyverse / gtsummary conventions
+- Explain each function used
+- Flag any assumption you made about missing data
+```
+
+- Reusing structured prompts like this means faster, more consistent, easier-to-validate answers, and a visible productivity gain your manager will notice.
+
+# 6. AI-Powered Productivity Hacks
+
+## Quick Wins for Daily Programming
+
+- **Error message decoder** - paste a cryptic R error, ask AI to explain in plain English + likely fix.
+- **Code translation** - SAS macro logic to R function, with AI drafting the first pass.
+- **Documentation generator** - auto-draft `roxygen2` comments for functions.
+- **Regex helper** - ask AI to build/explain a regex for cleaning `AVAL`/date strings.
+- **Test data generator** - ask AI to create small mock/dummy datasets matching a given ADaM structure for practice or unit testing.
+
+## Example: Turning an Error into a Lesson
+
+``` r
+adae %>% filter(AESEV = "SEVERE")
+#> Error in `filter()`:
+#> ! `..1 = AESEV = "SEVERE"` must be a logical vector, not a `character`.
+```
+
+**Ask AI:** *"Explain this dplyr filter error and fix it."*
+
+**Typical AI explanation + fix:**
+
+``` r
+# Cause: single "=" is assignment in R, not comparison (SAS uses "=" for both).
+# Fix: use double "==" for comparison
+adae %>% filter(AESEV == "SEVERE")
+```
+
+- This mirrors the #1 SAS to R stumbling block: **`=` vs `==`, and `<-` vs `=` for assignment**.
+
+## Example: Auto-Drafting Documentation
+
+**Prompt:** *"Write roxygen2 documentation for this function."*
+
+``` r
+derive_bmi <- function(weight_kg, height_m) {
+  weight_kg / (height_m^2)
+}
+```
+
+**AI-drafted docs (review before keeping!):**
+
+``` r
+#' Derive Body Mass Index (BMI)
+#'
+#' @param weight_kg Numeric. Weight in kilograms.
+#' @param height_m Numeric. Height in meters.
+#' @return Numeric BMI value (kg/m^2).
+#' @examples
+#' derive_bmi(70, 1.75)
+```
+
+- Saves time on the *boilerplate*, but you still confirm units, edge cases (height = 0), and rounding rules.
+
+## SAS Mindset vs Programmer Mindset for Automation
+
+| SAS/manual mindset | Programmer mindset |
+|----|----|
+| Copy last study's macro, hand-edit study-specific values | One **parameterized function/package** driven by a config file (YAML/CSV) per study |
+| Rerun each TLF program by hand when data refreshes | **Orchestrate** the pipeline (`targets`, Make, CI) - one trigger reruns everything in dependency order |
+| "It worked when I ran it" | **Unit tests** (`testthat`) + automated diff against last locked output |
+| Macro shared via shared drive/email | **Git repo** - history, PR review, rollback |
+| AI writes one throwaway snippet per ask | AI helps write the **reusable, tested function** - not just today's answer |
+
+- The shift AI enables isn't "type less" - it's **write the automation once, correctly, and let it run itself**.
+
+## Realistic Example: Automate Once, Run Many
+
+Instead of N near-identical SAS programs for N similar AE tables (one per study/pool/pop), drive one function from a spec:
+
+``` r
+# spec.csv: one row per table - dataset, treatment var, title, output path
+specs <- readr::read_csv("spec/ae_tables_spec.csv")
+
+for (i in seq_len(nrow(specs))) {
+  df  <- get(specs$dataset[i])
+  tbl <- build_ae_table(df, trt_var = specs$trt_var[i], title = specs$title[i])
+  save_tlf(tbl, specs$out_file[i])
+}
+```
+
+- Ask AI to help write and **unit-test `build_ae_table()`** once - not to regenerate similar code a dozen times.
+- This is exactly the pattern ARS/ARD is standardizing industry-wide: separate the *spec* (metadata) from the *engine* (code).
+
+## Other Repeated Tasks Worth Automating
+
+- **Spec and code conformance** - script diffs define.xml/aCRF against SDTM/ADaM specs, run in CI on every data refresh (not manual eyeballing).
+- **TLF QC diffing** - auto-diff current RTF/output numbers + footnotes against prior locked version; flag only what changed.
+- **Dataset conformance** - `{sdtm.oak}`/Pinnacle 21 checks triggered automatically on every commit, not run-when-you-remember.
+- AI's role: draft the **check logic and error messages** - the pipeline (CI, git hooks, scheduled jobs) is what makes it actually repeat without you.
+
+## Tool Landscape (2026 snapshot)
+
+| Tool | Typical use in clinical programming |
+|----|----|
+| GitHub Copilot (RStudio/Positron/VS Code) | Inline code completion, boilerplate, unit tests |
+| Claude / ChatGPT (chat) | Explain errors, translate SAS and R logic, draft docs |
+| Company-hosted/private LLM | Safer for study-specific (non-PHI) discussions per SOP |
+
+::: callout-note
+Always confirm which tools are **approved by your company's IT/validation policy** before using them on work content.
+:::
+
+# 7. AI for Managers and Team Leads
+
+## Beyond Individual Productivity
+
+- Managers need **governance**, not just adoption: which AI tools are approved, for which tasks, with which data classifications.
+- Build an **AI usage SOP**: approved tools list, prohibited data types, required disclosure/documentation, QC expectations for AI-assisted code.
+- Track **risk, not just speed** - a team that ships AI-assisted code 2x faster but skips validation is a liability, not a win.
+
+## A Simple Team AI-Governance Checklist
+
+```         
+[ ] Approved AI tools documented (per data sensitivity level)
+[ ] SOP updated: disclosure requirement for AI-assisted programs
+[ ] QC process unchanged/strengthened for AI-touched code
+[ ] Training plan: prompt engineering + hallucination spotting
+[ ] Escalation path if AI output raises a compliance question
+```
+
+## Leading Team Upskilling
+
+- Run short **"prompt clinics"**: team members share prompts that worked well for SAS to R translation, error debugging, documentation.
+- Pair **experienced SAS programmers** (domain knowledge) with **early R adopters** (syntax fluency) - AI helps bridge the middle.
+- Measure literacy, not just usage: can a programmer explain *why* AI's suggested code is right or wrong? That's the real skill.
+- Reward **catching AI mistakes** publicly (e.g., in team stand-ups) - reinforces a culture of healthy skepticism, not blind trust.
+
+## Manager's Balancing Act
+
+| Encourage | Guard Against |
+|----|----|
+| Faster first-drafts of R code | Skipping independent QC because "AI already checked it" |
+| Team-wide prompt libraries | Inconsistent, ungoverned tool usage |
+| AI literacy training | Sharing PHI/PII/unblinded data with public tools |
+| Innovation & efficiency gains | False confidence in unvalidated output |
+
+# Key Takeaways
+
+## Summary
+
+- AI/LLMs are powerful **co-pilots** for SAS-to-R learning and daily coding - not replacements for programmer judgment or QC.
+- Biggest risk in clinical trials: **hallucinated, unvalidated code** entering a regulated deliverable.
+- Responsible use = confidentiality + transparency + validation, every time.
+- Career growth = combine **programming + domain (CDISC) + AI literacy**.
+- Managers must pair productivity gains with **governance and validation discipline**.
+
+## Discussion / Practice
+
+- Try the reusable prompt template on a real (non-sensitive) SAS macro you use often - bring the R draft to next session for review.
+- Identify one task in your daily work where an AI-powered productivity hack (error decoding, doc generation, regex help) could save time this week.

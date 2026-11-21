@@ -1,0 +1,2 @@
+load("/Volumes/Disk Bishwas/R Training/training25/data/ae_domain.rda")
+load("/Volumes/Disk Bishwas/R Training/training25/data/adsl_domain.rda")

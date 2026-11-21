@@ -1,0 +1,47 @@
+---
+title: "Week 2: Assignment"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format: html
+editor: visual
+---
+
+## **Task 1**
+
+-   Run all the `Your Turn` from Day 10 \> Error_handling_guide
+
+-   Install package from `Your Turn 04`
+
+## **Tasks 2**
+
+1.  Create a New .R file from File \> R Script
+
+    Or type: `Ctrl+ Shift +N` shortcut
+
+2.  Save it as `practice_code.R` in `Week 2` folder
+
+3.  Now practice code from Tasks 3.
+
+4.  Use `Ctrl+Enter` to run the certain line of code or select the line of code to run.
+
+5.  [Click this link](https://docs.posit.co/ide/user/ide/guide/code/execution.html) to learn how to execute code in .R file.
+
+## **Tasks 3**
+
+Read and practice code from the link given below:
+
++---------------------------+----------------------------------------------+
+| Instruction               | Links to Open                                |
++===========================+==============================================+
+| Read the documentation    | <https://style.tidyverse.org/files.html>     |
++---------------------------+----------------------------------------------+
+| Read and Practice codes   | <https://style.tidyverse.org/syntax.html>    |
++---------------------------+----------------------------------------------+
+| Read and Practice codes;  | <https://style.tidyverse.org/functions.html> |
+|                           |                                              |
+| Skip section: **3.4 S7**  |                                              |
++---------------------------+----------------------------------------------+
+| Read and Practice codes   | <https://style.tidyverse.org/pipes.html>     |
++---------------------------+----------------------------------------------+
+| Read and Practice codes   | <https://style.tidyverse.org/ggplot2.html>   |
++---------------------------+----------------------------------------------+

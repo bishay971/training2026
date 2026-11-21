@@ -1,0 +1,400 @@
+---
+title: "Data Visualization: Customization"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format: html
+editor: visual
+---
+
+```{r}
+# Load required libraries
+library(tidyverse)
+library(scales)
+
+rsetup::get_data("viz_data")
+
+# Calculate frequencies and percentages
+race_summary <- dm  |> 
+  group_by(RACE)  |> 
+  summarise(
+    count = n(),
+    percentage = n() / nrow(dm) * 100
+  ) %>%
+  mutate(
+    label = paste0(count, " (", round(percentage, 1), "%)"),
+    RACE = factor(RACE)  # Ensure proper ordering
+  )
+
+# barplot
+ggplot(dm, aes(x = RACE, fill = RACE)) +
+  geom_bar(
+    color = "black",           # Border color
+    linewidth = 0.3,            # Border thickness
+    width = 0.7                 # Bar width
+  ) +
+  
+  # Add count and percentage labels on bars
+  geom_text(
+    data = race_summary,
+    aes(x = RACE, y = count, label = label),
+    vjust = -0.5,               # Position above bars
+    size = 3.5,
+    color = "black"
+  ) +
+  
+  # Custom colors for races (using ColorBrewer palette)
+  scale_fill_brewer(
+    palette = "Set2",            # Colorblind-friendly palette
+    name = "Race"      # Legend title
+  ) +
+  
+  # Manual color specification
+  # scale_fill_manual(
+  #   values = c(
+  #     "Asian" = "#E69F00",
+  #     "Black" = "#56B4E9",
+  #     "White" = "#009E73",
+  #     "Hispanic" = "#F0E442",
+  #     "Other" = "#CC79A7"
+  #   )
+  # ) +
+  
+  # Labels 
+  labs(
+    title = "Figure 1: Distribution of Race",
+    subtitle = paste0("Safety Population (N = ", nrow(dm), ")"),
+    x = "Race",
+    y = "Number of Subjects",
+    caption = "Note: Percentages based on non-missing data."
+  ) +
+  
+  # Scale customization
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.15)),  # Extra space for labels
+    breaks = pretty_breaks()
+  ) +
+  
+  # Custom theme
+  theme_classic(base_size = 12) +
+  theme(
+    # Title formatting
+    plot.title = element_text(
+      size = 14,
+      face = "bold",
+      hjust = 0,
+      margin = margin(b = 5)
+    ),
+    plot.subtitle = element_text(
+      size = 11,
+      color = "#2C3E50",
+      face = "italic",
+      hjust = 0,
+      margin = margin(b = 15)
+    ),
+    plot.caption = element_text(
+      size = 8,
+      color = "#7F8C8D",
+      hjust = 0,
+      margin = margin(t = 10)
+    ),
+    
+    # Axis formatting
+    axis.title = element_text(
+      size = 11,
+      face = "bold",
+      color = "#2C3E50"
+    ),
+    axis.text = element_text(
+      size = 10,
+      color = "#2C3E50"
+    ),
+    axis.text.x = element_text(
+      angle = 45,                  # Angle for long race labels
+      hjust = 1,
+      vjust = 1
+    ),
+    axis.line = element_line(
+      color = "#2C3E50",
+      linewidth = 0.5
+    ),
+    
+    # Legend formatting
+    legend.position = "right",
+    legend.title = element_text(
+      size = 10,
+      face = "bold"
+    ),
+    legend.text = element_text(
+      size = 9
+    ),
+    legend.background = element_blank(),
+    legend.key.size = unit(0.8, "cm"),
+    
+    # Grid lines (minimal)
+    panel.grid.major.y = element_line(
+      color = "#ECF0F1",
+      linewidth = 0.3
+    ),
+    panel.grid.major.x = element_blank(),
+    
+    # Plot margins
+    plot.margin = margin(t = 20, r = 20, b = 20, l = 20, unit = "pt")
+  )
+```
+
+```{r}
+
+
+# boxplot
+ggplot(data = vs, aes(x = VISIT, y = TEMP)) +
+  geom_boxplot(
+    fill = "#E6F3FF",           # Light blue fill 
+    color = "#2C3E50",           # Dark blue-grey border
+    outlier.color = "#E74C3C",   # Red outliers for emphasis
+    outlier.shape = 1,           # Open circle for outliers 
+    outlier.size = 2,
+    width = 0.6,                 # Appropriate box width
+    alpha = 0.8                   # Slight transparency
+  ) +
+  
+  # Add mean points 
+  stat_summary(
+    fun = mean,
+    geom = "point",
+    shape = 18,                   # Diamond shape for mean
+    size = 3,
+    color = "#2C3E50",
+    show.legend = TRUE
+  ) +
+  
+  # Add reference line for normal body temperature
+  geom_hline(
+    yintercept = 36.5,            # Average body temperature
+    linetype = "dashed",  # "solid" "dotted" "dotdash"
+    color = "#E74C3C",
+    linewidth = 0.5,
+    alpha = 0.7
+  ) +
+  
+  # Labels
+  labs(
+    title = "Figure 2: Distribution of Body Temperature by Study Visit",
+    subtitle = "Safety Population",
+    x = "Study Visit",
+    y = "Temperature (°C)",
+    caption = paste0(
+      "Note: Horizontal dashed line indicates normal body temperature (36.5°C).\n",
+      "Diamonds represent mean values. Data presented as median (IQR) with outliers shown."
+    )
+  ) +
+  
+  # Scale customization
+  scale_y_continuous(
+    limits = c(35, 38),           # relevant range
+    breaks = seq(35, 38, by = 0.5),
+    expand = expansion(mult = c(0.02, 0.05))
+  ) +
+  # custom theme options
+  theme_classic(base_size = 12) +
+  theme(
+    # Title formatting
+    plot.title = element_text(
+      size = 14,
+      face = "bold",
+      hjust = 0,
+      margin = margin(b = 5)
+    ),
+    plot.subtitle = element_text(
+      size = 11,
+      color = "#2C3E50",
+      face = "italic",
+      hjust = 0,
+      margin = margin(b = 15)
+    ),
+    plot.caption = element_text(
+      size = 8,
+      color = "#7F8C8D",
+      hjust = 0,
+      margin = margin(t = 15)
+    ),
+    
+    # Axis formatting
+    axis.title = element_text(
+      size = 11,
+      face = "bold",
+      color = "#2C3E50"
+    ),
+    axis.text = element_text(
+      size = 10,
+      color = "#2C3E50"
+    ),
+    axis.text.x = element_text(
+      angle = 45,
+      hjust = 1,
+      vjust = 1
+    ),
+    axis.line = element_line(
+      color = "#2C3E50",
+      linewidth = 0.5
+    ),
+    
+    # Grid lines 
+    panel.grid.major.y = element_line(
+      color = "#ECF0F1",
+      linewidth = 0.3
+    ),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor = element_blank(),
+    
+    # Legend (if needed)
+    legend.position = "none",
+    
+    # Plot margins
+    plot.margin = margin(t = 20, r = 20, b = 20, l = 20, unit = "pt")
+  )
+```
+
+```{r}
+# Save for publication (high resolution)
+ggsave("my_plot.png", 
+       plot = last_plot(),
+       width = 8, 
+       height = 6, 
+       dpi = 300,  # density per pixel
+       units = "in")
+```
+
+## 1: Core Components of a ggplot
+
+| Component | Code Element | Purpose | Example |
+|:---|:---|:---|:---|
+| **Data** | `data = dm` | Specifies the dataset | `data = dm` |
+| **Aesthetics** | `aes()` | Maps variables to visual elements | `aes(x = RACE, fill = RACE)` |
+| **Geometry** | `geom_*()` | Defines the plot type | `geom_bar()` |
+| **Labels** | `labs()` | Adds titles and axis labels | `labs(title = "...")` |
+| **Theme** | `theme_*()` | Controls overall appearance | `theme_classic()` |
+
+------------------------------------------------------------------------
+
+## 2: Bar Plot Specific Components
+
+| Component | Code | Purpose | Visual Effect |
+|:---|:---|:---|:---|
+| **Bar Geometry** | `geom_bar()` | Creates bars | Bars representing counts |
+| **Border Color** | `color = "black"` | Outlines bars | Black border around bars |
+| **Border Thickness** | `linewidth = 0.3` | Controls border weight | Thin, professional lines |
+| **Bar Width** | `width = 0.7` | Space between bars | 70% width, 30% gap |
+
+------------------------------------------------------------------------
+
+## 3: Text Annotation Components
+
+| Component | Code | Purpose | Placement |
+|:---|:---|:---|:---|
+| **Data Source** | `data = race_summary` | Uses summarized data | Pre-calculated table |
+| **Label Text** | `aes(label = label)` | What to display | "15 (25.4%)" |
+| **Vertical Position** | `vjust = -0.5` | Above/below bar | Above the bar |
+| **Text Size** | `size = 3.5` | Font size | Readable but not dominant |
+| **Text Color** | `color = "black"` | Label color | Matches theme |
+
+------------------------------------------------------------------------
+
+## 4: Color Customization Options
+
+| Method | Code | Flexibility | Use Case |
+|:---|:---|:---|:---|
+| **Brewer Palette** | `scale_fill_brewer(palette = "Set2")` | Pre-set, colorblind-friendly | Quick, professional colors |
+| **Manual Colors** | `scale_fill_manual(values = c(...))` | Full control | Brand colors, specific schemes |
+
+------------------------------------------------------------------------
+
+## 5: Title and Label Components
+
+| Element | Code | Purpose | Example |
+|:---|:---|:---|:---|
+| **Main Title** | `title = "Figure 1: ..."` | Identifies the figure | "Figure 1: Distribution of Race" |
+| **Subtitle** | `subtitle = "Safety Population..."` | Population info | "Safety Population (N = 200)" |
+| **X-axis Label** | `x = "Race"` | Horizontal axis | "Race" |
+| **Y-axis Label** | `y = "Number of Subjects"` | Vertical axis | "Number of Subjects" |
+| **Caption** | `caption = "Note: ..."` | Additional notes | "Percentages based on non-missing data" |
+
+------------------------------------------------------------------------
+
+## 6: Axis Scale Components
+
+| Component | Code | Purpose | Effect |
+|:---|:---|:---|:---|
+| **Expand Space** | `expand = expansion(mult = c(0, 0.15))` | Room for labels | 15% space above bars |
+| **Pretty Breaks** | `breaks = pretty_breaks()` | Automatic nice numbers | 0, 50, 100, 150... |
+
+------------------------------------------------------------------------
+
+## 7: Theme Components - Titles
+
+| Component | Code | Purpose | Visual |
+|:---|:---|:---|:---|
+| **Title Size** | `size = 14` | Main title prominence | Larger text |
+| **Title Face** | `face = "bold"` | Emphasis | **Bold text** |
+| **Title Position** | `hjust = 0` | Left-aligned | Left justified |
+| **Title Margin** | `margin = margin(b = 5)` | Space below title | 5pt gap |
+
+------------------------------------------------------------------------
+
+## 8: Theme Components - Axis
+
+| Component | Code | Purpose | Visual |
+|:---|:---|:---|:---|
+| **Axis Title** | `axis.title = element_text(face = "bold")` | Label emphasis | **Race** (bold) |
+| **Axis Text** | `axis.text = element_text(size = 10)` | Tick labels | Asian, Black, White |
+| **Text Angle** | `angle = 45` | Slanted labels | 45° rotation |
+| **Horizontal Adjustment** | `hjust = 1` | Right-align slanted text | Aligned right |
+| **Axis Line** | `axis.line = element_line(color = "black")` | Visible axes | Black line |
+
+------------------------------------------------------------------------
+
+## 9: Theme Components - Legend
+
+| Component | Code | Purpose | Visual |
+|:---|:---|:---|:---|
+| **Position** | `legend.position = "right"` | Legend location | Right side |
+| **Title Size** | `legend.title = element_text(size = 10, face = "bold")` | Legend header | **Race** |
+| **Text Size** | `legend.text = element_text(size = 9)` | Category labels | Asian, Black |
+| **Key Size** | `legend.key.size = unit(0.8, "cm")` | Color box size | 0.8cm square |
+
+------------------------------------------------------------------------
+
+## 10: Theme Components - Grid and Background
+
+| Component | Code | Purpose | Visual |
+|:---|:---|:---|:---|
+| **Y-axis Grid** | `panel.grid.major.y = element_line(color = "#ECF0F1")` | Horizontal guides | Light gray lines |
+| **Grid Width** | `linewidth = 0.3` | Line thickness | Thin, subtle |
+| **No X Grid** | `panel.grid.major.x = element_blank()` | Clean vertical | No vertical lines |
+| **Plot Margin** | `plot.margin = margin(t=20, r=20, b=20, l=20)` | White space | Breathing room |
+
+------------------------------------------------------------------------
+
+## 11: Summary - Complete Plot Layers
+
+| Layer           | Code Section                   | Purpose           |
+|:----------------|:-------------------------------|:------------------|
+| **1. Data**     | `ggplot(data = dm, aes(...))`  | Foundation        |
+| **2. Geometry** | `geom_bar()`                   | Build bars        |
+| **3. Labels**   | `geom_text()`                  | Add numbers       |
+| **4. Colors**   | `scale_fill_*()`               | Apply colors      |
+| **5. Titles**   | `labs()`                       | Add text          |
+| **6. Scale**    | `scale_y_continuous()`         | Adjust axes       |
+| **7. Theme**    | `theme_classic() + theme(...)` | Polish appearance |
+
+------------------------------------------------------------------------
+
+## 12: Common Parameters Reference
+
+| Element      | Parameter | Values                    | Effect                 |
+|:-------------|:----------|:--------------------------|:-----------------------|
+| **Size**     | `size`    | 8-16 (text), 2-5 (points) | Larger = more emphasis |
+| **Color**    | `color`   | "black", "#2C3E50", "red" | Border/text color      |
+| **Fill**     | `fill`    | "lightblue", "#E6F3FF"    | Interior color         |
+| **Width**    | `width`   | 0-1                       | Bar thickness          |
+| **Angle**    | `angle`   | 0-90                      | Text rotation          |
+| **Position** | `vjust`   | -1 to 2                   | Vertical adjustment    |

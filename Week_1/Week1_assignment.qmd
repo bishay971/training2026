@@ -1,0 +1,176 @@
+---
+title: "Week 1 Assignment"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format: html
+editor: visual
+---
+
+## Part 1: Variables and Operators
+
+### Task 1. Define and Create variables:
+
+-   `name` as "John"
+-   `age` as 28
+-   `weight_kg` as 70.5
+-   `is_smoker` as FALSE
+
+```{r}
+
+
+
+```
+
+### Task 2. Perform and display the following:
+
+-   Add 5 to `age`
+-   Multiply `weight_kg` by 2.2 (convert to pounds)
+-   Check if `age` is greater than 18
+-   Check if `is_smoker` is TRUE
+
+```{r}
+
+
+
+
+
+```
+
+## Part 2: Decision Making and Loops
+
+### Task 3: if_else
+
+Write an if_else block to classify sex:
+
+-   If sex is M: "Male"
+-   else: "Female"
+
+```{r}
+
+
+
+```
+
+### Tasks 4: case_when
+
+Write a case_when to select a health plan:
+
+-   "basic" → "Basic Plan: \$100/month"
+-   "premium" → "Premium Plan: \$200/month"
+-   "vip" → "VIP Plan: \$500/month"
+
+Check for monthly cost for premium plan.
+
+```{r}
+
+
+
+
+
+```
+
+### Task 5: Loop
+
+Create a Rocket Launch Countdown:
+
+-   The loop counts backward from 10 to 1 using 10:1
+
+-   `paste()` is used to combine `"T-minus"` with the number
+
+-   After the loop finishes, a final message `"🚀 Lift off!"` is shown
+
+```{r}
+
+
+
+
+
+```
+
+## Part 3: Functions
+
+### Task 5: Create Functions
+
+Create a function `bmi_calc(weight, height)` that returns `BMI = weight / height²` (in meters).
+
+Call the function with `weight = 70` and `height = 1.75`.
+
+```{r}
+
+
+
+
+
+```
+
+## Part 4: Vectors and Lists
+
+### Task 6: Vectors
+
+Create a numeric vector bp \<- c(120, 125, 118, 135, 110)
+
+Find the average using mean()
+
+Return values \> 120 using filtering
+
+```{r}
+
+
+
+
+```
+
+### Task 7: Lists
+
+1.  Create a list with:
+
+-   `Name` : "Jonh"
+-   `Age` : 28
+-   A vector of `cholesterol` levels: c(200, 180, 190)
+
+2.  Access each item using \$
+
+```{r}
+
+
+
+
+
+
+```
+
+## Part 5: Data Frames and Import
+
+### Task 8: Data Frame
+
+1.  Create a data frame `df` with:
+
+![](images/clipboard-4204281435.png){width="447"}
+
+-   Print structure using str()
+-   Filter people older than 30
+
+```{r}
+
+
+
+
+
+
+
+```
+
+### Task 9: Import/Export a XPT File
+
+-   Load built-in dataset using `data(cars)`
+-   Write it to a create `.xpt` file in `version 5` and save it in your `data` folder.
+-   Read the xpt file back using xpt
+
+```{r}
+
+
+
+
+
+
+```

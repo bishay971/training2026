@@ -1,0 +1,456 @@
+---
+title: "Strings and Dates"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format: html
+editor: visual
+---
+
+## **What are Strings?**
+
+-   Sequences of characters used to represent text data
+-   Text data stored as character vectors
+-   To standardize (i.e format variables as per CDISC Standards)
+-   Remove unwanted characters or special characters
+
+## Load
+
+```{r}
+library(tidyverse)  # uses "stringr" package
+```
+
+### Create
+
+```{r}
+# Simple string
+drug_name <- "Aspirin"
+drug_name
+
+# Character vector
+ae_terms <- c("Headache", "Nausea", "Fatigue")
+
+class(ae_terms)
+```
+
+### Operations
+
+| **Function**   | **Description**                |
+|:---------------|:-------------------------------|
+| `str_c()`      | Concatenate strings            |
+| `str_length()` | Get character count            |
+| `str_sub()`    | Extract substrings by position |
+
+### Concatenation
+
+```{r}
+str_c("Adverse Event ", "(Headache)")          
+str_c(ae_terms, collapse = ", ")            
+```
+
+### Length
+
+```{r}
+str_length("Hypertension")                    
+```
+
+### Substring
+
+```{r}
+str_sub("STUDY001", start = 6, end = 8) 
+```
+
+## Your Turn 01
+
+1.  Create the `PARAM` variable by combining `TEST` and `UNIT`
+
+-   Example: `PARAM` = "Weight (kg)"
+
+2.  Find the length of string from `PARAM`
+
+```{r}
+TEST <- c("Glucose", "Creatinine", "Cholesterol")
+LBUNIT <- c("mg/dL", "mg/dL", "mg/dL")
+
+
+
+
+```
+
+### Case Conversion
+
+| **Function**     | Description           |
+|:-----------------|:----------------------|
+| `str_to_upper()` | Convert to uppercase  |
+| `str_to_lower()` | Convert to lowercase  |
+| `str_to_title()` | Title case formatting |
+
+```{r}
+str_to_upper("aspirin")                        
+str_to_lower("METFORMIN")                      
+str_to_title("drug safety")                    
+```
+
+## Your Turn 02
+
+-   Convert string to uppercase, lowercase and title case.
+
+```{r}
+form <- "adverse event"
+
+
+
+
+```
+
+### **Pattern Matching & Extraction**
+
+| **Function**    | **Description**          |
+|:----------------|:-------------------------|
+| `str_detect()`  | Detect pattern presence  |
+| `str_which()`   | Find element positions   |
+| `str_extract()` | Extract matched patterns |
+| `str_remove()`  | Remove pattern           |
+
+## Regex
+
+A **regular expression (regex)** is a sequence of characters that defines a search pattern for text processing. Regex allows you to:
+
+-   Match specific patterns in strings
+
+-   Extract substrings
+
+-   Replace text
+
+-   Validate formats (e.g., patient IDs, dates)
+
+### Category
+
+| **Category**      | **Regex Pattern** | **Matches**                         |
+|:------------------|:------------------|:---------------------------------|
+| **Digits**        | `[[:digit:]]`     | Any digit (0–9)                     |
+| **Letters**       | `[[:alpha:]]`     | Alphabetic characters               |
+| **Alphanumeric**  | `[[:alnum:]]`     | Letters + numbers                   |
+| **Punctuation**   | `[[:punct:]]`     | `! " # $ % & ' ( ) * + , - . / : ;` |
+| **Whitespace**    | `[[:space:]]`     | Spaces, tabs, newlines              |
+| **Lowercase**     | `[[:lower:]]`     | Lowercase letters                   |
+| **Uppercase**     | `[[:upper:]]`     | Uppercase letters                   |
+| **Fixed Strings** | `fixed("text")`   | Exact literal match                 |
+
+### Patterns
+
+```{r}
+string <- "Severe headache"
+str_detect(string, "Severe")   
+
+str_which(ae_terms, "Nausea")               
+```
+
+### Extract
+
+```{r}
+string <- "TRTA 10"
+
+str_extract_all(string, "[[:digit:]]+")  
+```
+
+### Remove
+
+```{r}
+string <- "Aspirin!"
+
+str_remove_all(string, "[[:punct:]]") 
+```
+
+## Your Turn 03
+
+1.  Detect all lab test containing word "Glucose"
+
+```{r}
+lab_tests <- c("Glucose Fasting", "Creatinine", "Glucose Random", "ALT")
+
+
+
+```
+
+2.  Extract numeric result from lab
+
+```{r}
+lab_results <- c("Glucose: 98 mg/dL", "Creatinine: 0.8", "ALT: 24 IU/L")
+
+
+```
+
+3.  Clean protocol codes by remove "PT-" prefixes
+
+```{r}
+protocols <- c("PT-001", "PT-2023", "PT-05", "INVALID")
+
+
+
+```
+
+## String Splitting & Replace
+
+| **Function**    | **Description**            |
+|:----------------|:---------------------------|
+| `str_split()`   | Split strings by delimiter |
+| `str_replace()` | Replace first match        |
+
+### Split
+
+```{r}
+string <- "A01,A02,A03"
+
+str_split(string, pattern = ",")       
+```
+
+### Replacement
+
+```{r}
+string <- "BP=120/80"
+
+str_replace(string, "120", "130")
+```
+
+## Your Turn 04
+
+1.  Split lab test names and units.
+
+```{r}
+lab_data <- c("Glucose mg/dL", "Creatinine mg/dL", "ALT IU/L")
+
+
+```
+
+2.  Replace the first occurrence of "AE" with "Adverse Event".
+
+```{r}
+terms <- c("AE1: Headache", "AE2: Nausea", "Serious AE3: Fatigue")s
+
+
+```
+
+### Whitespace & Padding
+
+| **Function**   | **Description**                                  |
+|:---------------|:-------------------------------------------------|
+| `str_pad()`    | Pad strings to fixed width                       |
+| `str_trim()`   | Remove leading/trailing whitespace               |
+| `str_squish()` | Remove leading/trailing and all other whitespace |
+|                |                                                  |
+
+### Padding
+
+```{r}
+str_pad("5", width = 3, side = "left", pad = "0")  # "005"
+```
+
+### Remove Space
+
+```{r}
+string <- " Hello \t World \n"
+string
+
+str_trim(string)
+
+str_squish(string)
+```
+
+## Your Turn 05
+
+-   Remove whitespace in patient comments (newlines, tabs, multiple spaces).
+
+```{r}
+comments <- c(
+  "  Severe  headache\nrequiring  hospitalization\t",
+  "Nausea\nand\nvomiting",
+  "  Fatigue"
+)
+
+
+```
+
+# Dates
+
+## What are Dates?
+
+-   Dates are stored as Date objects in R (number of days since 1970-01-01)
+-   Time is stored as POSIXct (seconds since 1970-01-01)
+
+## Date formats
+
+| **Date Example** | **Description**                 |
+|:-----------------|:--------------------------------|
+| `"2023-05-15"`   | YYYY-MM-DD (ISO 8601)           |
+| `"15MAY2023"`    | DDMMMYYYY (SAS format)          |
+| `"05/15/2023"`   | MM/DD/YYYY (US format)          |
+| `"15-05-2023"`   | DD-MM-YYYY (EU and Asia format) |
+
+## Create Dates
+
+```{r}
+# From character strings
+as.Date("2023-05-15")    # ISO format (YYYY-MM-DD)
+mdy("05/15/2023")         # Month-Day-Year
+dmy("15-May-2023")        # Day-Month-Year
+
+# From numeric values
+as.Date(19500, origin = "1970-01-01") 
+```
+
+## Date parsing functions
+
+| **Function**        | **Input Format**          | **Example Input**    |
+|:--------------------|:--------------------------|:---------------------|
+| `ymd()`             | Year-Month-Day            | `"2023-05-15"`       |
+| `mdy()`             | Month-Day-Year            | `"05/15/2023"`       |
+| `dmy()`             | Day-Month-Year            | `"15-05-2023"`       |
+| `ydm()`             | Year-Day-Month            | `"2023-15-05"`       |
+| `ymd_hms()`         | Year-Month-Day H:M:S      | `"2023-05-15 14:30"` |
+| `mdy_hm()`          | Month-Day-Year H:M        | `"05/15/2023 14:30"` |
+| `dmy_h()`           | Day-Month-Year Hour       | `"15-05-2023 14"`    |
+| `parse_date_time()` | Flexible multiple formats | `"15May2023"`        |
+
+## Your Turn 06
+
+Convert these to `Date` objects:
+
+1.  `"July 4, 2023"` (MM/DD/YYYY)
+2.  `"04/07/23"` (DD/MM/YY)
+3.  `"20230515"` (YYYYMMDD)
+
+```{r}
+
+
+
+```
+
+# Date Operation
+
+### Extract Date Components
+
+```{r}
+today <- today()
+today
+
+year(today)    # Extract year
+month(today)    # Extract month
+day(today)      # Extract day
+weekdays(today) # Extract weekdays
+```
+
+### Adding/Subtracting Days:
+
+```{r}
+date <- as.Date("2025-03-31")
+date
+
+date + 10  # Add 10 days
+date - 5   # Subtract 5 days
+```
+
+### Calculating Date Differences:
+
+```{r}
+start_date <- as.Date("2025-01-01")
+end_date <- as.Date("2025-03-31")
+
+as.numeric(end_date - start_date)
+```
+
+## Your Turn 07
+
+Given:
+
+``` r
+BRTHDTC <- c("1990-05-15", "1985-12-20")
+```
+
+1.  Calculate `age` in years using BRTHDTC.
+2.  Add 10 days in `age`
+
+```{r}
+BRTHDTC <- c("1990-05-15", "1985-12-20")
+
+
+
+
+```
+
+# Partial Date and Imputation
+
+## Partial Date Format
+
+| **Component**      | **Unknown Marker** | **Example**  |
+|:-------------------|:-------------------|:-------------|
+| Day                | `UN`               | `2023-UN-15` |
+| Month              | `UN`               | `2023-06-UN` |
+| Year               | `UN`               | `UN-06-15`   |
+| Completely unknown | `UNK`              | `UNK`        |
+
+### Example 1
+
+-   Unknown month ("2023-UN-15" → "2023")
+
+```{r}
+un_month <- "2023-UN-15"
+partial_month <- str_replace(un_month, "-UN-\\d{2}$", "")  # Remove "-UN-15"
+
+partial_month
+```
+
+### Example 2
+
+-   Unknown day ("2023-06-UN" → "2023-06")
+
+```{r}
+un_day <- "2023-06-UN"
+partial_day <- str_replace(un_day, "-UN$", "")  # Remove "-UN"
+
+partial_day
+```
+
+## Date Imputation
+
+| **Example Input** | **Imputation Rule**                  | **Imputed Output** |
+|:-----------------|:---------------------------------|:------------------|
+| `"1990"`          | Add `-01-01` (Jan 1st)               | `"1990-01-01"`     |
+| `"2005-08"`       | Add `-01` (1st day of month)         | `"2005-08-01"`     |
+| `"1988-12-25"`    | **No imputation** (already complete) | `"1988-12-25"`     |
+
+```{r}
+
+str_c(partial_day, "-01") |> as.Date()
+
+str_c(partial_month, "-01-01") |> as.Date()
+
+```
+
+## Format code for Date
+
+| **Code** | **Meaning**         | **Example Output** |
+|:---------|:--------------------|:-------------------|
+| `%Y`     | 4-digit year        | `"2023"`           |
+| `%y`     | 2-digit year        | `"23"`             |
+| `%m`     | 2-digit month       | `"05"`             |
+| `%B`     | Full month name     | `"March"`          |
+| `%b`     | Abbreviated month   | `"Mar"`            |
+| `%d`     | 2-digit day         | `"15"`             |
+| `%A`     | Full weekday name   | `"Monday"`         |
+| `%a`     | Abbreviated weekday | `"Mon"`            |
+| `%H`     | 24-hour hour        | `"14"`             |
+| `%I`     | 12-hour hour        | `"02"`             |
+| `%M`     | Minutes             | `"30"`             |
+| `%S`     | Seconds             | `"05"`             |
+| `%F`     | ISO 8601 date       | `"2023-05-15"`     |
+| `%T`     | ISO 8601 time       | `"14:30:00"`       |
+
+## Example
+
+```{r}
+as.Date("1990-05-12")  # YYYY-MM-DD (default format)
+as.Date("15-09-1992", format="%d-%m-%Y")  # DD-MM-YYYY
+as.Date("03/31/2025", format="%m/%d/%Y")  # MM/DD/YYYY
+as.Date("20250330", format="%Y%m%d")  # YYYYMMDD
+as.Date("12JAN2025", format="%d%b%Y") # DDMMMYYYY
+```

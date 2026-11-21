@@ -1,0 +1,255 @@
+---
+title: "Hands on Practice"
+author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+copyright: "© 2025. Unauthorized distribution or reuse prohibited."
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+
+get_data("viz_data")
+```
+
+> Each plot = **data + `aes()` + geometry + customization**. Fill in the blanks (`....`).
+
+## Your Turn 01
+
+**New here:** `geom_histogram()` (distribution of one numeric column), `binwidth` (bar width), `fill` (bar color).
+
+Plot histogram of `Height` using `vs` Dataset.
+
+Add `binwidth` = 5.
+
+```{r}
+ggplot(...., aes(x = ....)) +
+  geom_histogram(binwidth = ....)
+```
+
+Again plot the histogram of `Temp` using vs dataset:
+
+Add bindwidth = 0.1 and fill = "skyblue"
+
+```{r}
+
+
+
+
+```
+
+## Your Turn 02
+
+**New here:** `geom_density()` (smoothed distribution), `fill` + `alpha` (overlap groups, see through).
+
+Draw a **density plot** of `TEMP` to compare the distribution across each `VISIT` using the `vs` dataset.
+
+- Geometry: x-axis = `TEMP`, fill = `VISIT`
+- Overlap the curves with `alpha` = 0.4
+- Add `theme_minimal()`
+
+```{r}
+ggplot(vs, aes(x = ...., fill = ....)) +
+  geom_........(alpha = ....) +
+  labs(
+    title = "Temperature Distribution by Visit",
+    x = "Temperature",
+    y = "Density"
+  ) +
+  theme_minimal()
+```
+
+## Your Turn 03
+
+**New here:** `geom_boxplot()` (median/quartiles/outliers), `na.rm = TRUE` (drop missing), `coord_flip()` (swap axes), `scale_fill_brewer()` (palette).
+
+Draw a **box plot** of `SYSBP` across each `VISIT` using the `vs` dataset.
+
+- Geometry: x-axis = `VISIT`, y-axis = `SYSBP`, fill = `VISIT`
+- Drop missing values with `na.rm = TRUE`
+- Flip horizontally and use palette `"Set2"`
+
+```{r}
+ggplot(vs, aes(x = ...., y = ...., fill = ....)) +
+  geom_........(na.rm = ....) +
+  scale_fill_brewer(palette = "....") +
+  ............() +   # flip the chart
+  labs(
+    title = "Systolic BP Distribution by Visit",
+    x = "Visit",
+    y = "Systolic Blood Pressure"
+  ) +
+  theme_minimal()
+```
+
+## Your Turn 04
+
+**New here:** `geom_bar()` (count per category), `labs()` (title/axis/caption), `scale_y_continuous()` (y limits + breaks).
+
+Draw a bar plot to find out the number of subjects in each ARMCD. Use `dm` dataset.
+
+Use following properties:
+
+- Geometry: x-axis = ARMCD and fill = ARMCD
+- Title : "Subject Distribution by Treatment Arm",
+- X axis : "Treatment Arm",
+- Y axis : "Number of Subjects",
+- Caption: "Source: Demographics dataset"
+- y-axis from 0 to 20, breaks every 5
+- Add theme_minimal()
+
+```{r}
+ggplot(dm, aes(x = ..., fill = ....)) +
+  geom_bar() +
+  labs(
+    title = "...",
+    x = "...",
+    y = "...",
+    caption = "Source: Demographics dataset"
+  ) +
+  scale_y_continuous(
+    limits = c(...., ....),
+    breaks = seq(...., ...., by = ....)
+  ) +
+  ...... # theme_minimal()
+
+```
+
+## Your Turn 05
+
+**New here:** `group_by()` + `summarize(n())` (count per group), `count()` (shortcut).
+
+Verify the count of the subjects in each `ARMCD` by using summarize and n() functions learned on Day 6.
+
+```{r}
+count_ex3 <- dm |>
+  group_by(...) |>
+  summarize(...)
+
+# alternatively we can use count() function
+count_ex3 <- dm |>
+  count(...)
+```
+
+## Your Turn 06
+
+**New here:** `fill =` second variable, `position = "dodge"` (side-by-side), `scale_fill_manual()` (custom colors).
+
+Draw a **grouped bar plot** of subject counts by `ARMCD`, split by `SEX`, using the `dm` dataset.
+
+- Geometry: x-axis = `ARMCD`, fill = `SEX`
+- Place bars side by side with `position = "dodge"`
+- Set custom colors: `F` = `"#E69F00"`, `M` = `"#0072B2"`
+
+> Try `position = "fill"` instead to compare proportions rather than counts.
+
+```{r}
+ggplot(dm, aes(x = ...., fill = ....)) +
+  geom_bar(position = "....") +
+  scale_fill_manual(
+    values = c("F" = "....", "M" = "....")
+  ) +
+  labs(
+    title = "Subject Count by Treatment Arm and Sex",
+    x = "Treatment Arm Code",
+    y = "Number of Subjects"
+  ) +
+  theme_minimal()
+```
+
+## Your Turn 07
+
+**New here:** `fct_infreq()` (order by frequency), `geom_text(stat = "count")` (value labels), `after_stat(count)` (computed count).
+
+Draw a **bar plot** of subject counts by `RACE` using the `dm` dataset, ordered from most to least frequent.
+
+- Reorder bars by frequency with `fct_infreq(RACE)`
+- Flip the chart with `coord_flip()`
+- Show the count on each bar
+
+```{r}
+ggplot(dm, aes(x = ........(RACE))) +
+  geom_bar(fill = "steelblue") +
+  geom_text(
+    stat = "....",
+    aes(label = after_stat(....)),
+    hjust = -0.3
+  ) +
+  ............() +   # flip the chart
+  labs(
+    title = "Subject Count by Race",
+    x = "Race",
+    y = "Number of Subjects"
+  ) +
+  theme_classic()
+```
+
+## Your Turn 08
+
+**New here:** `geom_point()` (scatter), `alpha` (transparency), `geom_smooth(method = "lm")` (trend line).
+
+Draw a **scatter plot** to explore the relationship between `WEIGHT` and `SYSBP` using the `vs` dataset.
+
+- Geometry: x-axis = `WEIGHT`, y-axis = `SYSBP`, color = `VISIT`
+- Make points semi-transparent with `alpha` = 0.6
+- Add a straight trend line: `method = "lm"`, `se = FALSE`
+
+```{r}
+ggplot(vs, aes(x = ...., y = ....)) +
+  geom_point(aes(color = ....), alpha = ...., na.rm = TRUE) +
+  geom_........(method = "....", se = FALSE, na.rm = TRUE) +
+  labs(
+    title = "Weight vs Systolic Blood Pressure",
+    x = "Weight (kg)",
+    y = "Systolic Blood Pressure"
+  ) +
+  theme_bw()
+```
+
+## Your Turn 09
+
+**New here:** `geom_line()` (trend), `scale_color_manual()` (colors per group), `facet_wrap()` (small multiples).
+
+Draw a line chart using the dataset of `vs_facet` to show `VISIT` in x-axis, `mean` in y-axis and group and colored by `ARMCD` and faceted by `VSTESTCD`.
+
+- Use `theme_classic()`
+- Add scales = "free"
+
+> facet means displaying same plot with a different groups
+
+```{r}
+ggplot(...., aes(x = , y = , color = , group = )) +
+  geom_.....() +
+  geom_point() +
+  scale_color_manual(
+    values = c("PLACEBO" = "....", "WONDER10" = "....")
+  ) +
+  facet_wrap(........, scales = "free") +
+  theme_classic()
+```
+
+## Your Turn 10
+
+**New here:** `theme()` (fine control), `element_text(angle, hjust, face)` (style text), `legend.position` (hide/move legend).
+
+Take the `ARMCD` bar plot from Your Turn 04 and fine-tune its appearance using `theme()`.
+
+- Rotate the x-axis labels 45 degrees
+- Hide the legend
+- Center and bold the title
+
+```{r}
+ggplot(dm, aes(x = ARMCD, fill = ARMCD)) +
+  geom_bar() +
+  labs(
+    title = "Subject Distribution by Treatment Arm",
+    x = "Treatment Arm Code",
+    y = "Number of Subjects"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = ...., hjust = ....),
+    legend.position = "....",
+    plot.title = element_text(hjust = ...., face = "....")
+  )
+```
