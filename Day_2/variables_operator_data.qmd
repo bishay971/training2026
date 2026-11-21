@@ -1,6 +1,6 @@
 ---
 title: "Variables"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Bishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -10,9 +10,9 @@ editor: visual
 
 ## Variables
 
--   Variables are used to store value (data) in R.
--   In variable, we can change value as per our need.
--   Example:
+- Variables are used to store value (data) in R.
+- In variable, we can change value as per our need.
+- Example:
 
 ```{r}
 a <- 4 
@@ -20,8 +20,8 @@ a <- 4
 
 ## Constants
 
--   Constants are those whose valye cannot be changed.
--   Example:
+- Constants are those whose valye cannot be changed.
+- Example:
 
 ```{r}
 2.5 # numerical constant
@@ -30,8 +30,8 @@ a <- 4
 
 ## Assignment
 
--   We use "\<-" (arrow) symbol to assign a value
--   A variable can hold different types of data.
+- We use "\<-" (arrow) symbol to assign a value
+- A variable can hold different types of data.
 
 ```{r}
 num <- 123 # numeric
@@ -46,10 +46,10 @@ alp
 
 ### Rules
 
--   Variable name must start with alphabet (or dot).
--   Only accepts letters, numbers, dot and underscore
--   Case is sensitive (n vs N)
--   Can't use Reserved words
+- Variable name must start with alphabet (or dot).
+- Only accepts letters, numbers, dot and underscore
+- Case is sensitive (n vs N)
+- Can't use Reserved words
 
 ### Example 1
 
@@ -93,9 +93,9 @@ else <- 200
 
 ## Your Turn 01
 
--   Assign `100` to **num1** variable and display it.
+- Assign `100` to **num1** variable and display it.
 
--   Assign "apple" to **alpha1** variable and display it.
+- Assign "apple" to **alpha1** variable and display it.
 
 ```{r}
 
@@ -108,9 +108,9 @@ else <- 200
 
 ### About
 
--   Help us know what type of data a variable is holding.
+- Help us know what type of data a variable is holding.
 
--   We can use **class()** function to determine data type of variable
+- We can use **class()** function to determine data type of variable
 
 ### Types
 
@@ -165,8 +165,8 @@ class(a)
 
 ### Question
 
--   Find the class of the variable, `num1` and `alpha1` (variables from **Your Turn 1**).
--   Convert `num1` to character type and assign it to variable called `char1`. And find class its too.
+- Find the class of the variable, `num1` and `alpha1` (variables from **Your Turn 1**).
+- Convert `num1` to character type and assign it to variable called `char1`. And find class its too.
 
 ### Answer
 
@@ -187,9 +187,9 @@ class(char1)
 
 We have 3 basic operators in R.
 
--   Arithmetic Operators
--   Relational Operators
--   Logical Operators
+- Arithmetic Operators
+- Relational Operators
+- Logical Operators
 
 ### Arithmetic
 
@@ -299,8 +299,8 @@ if(x > 0){
 
 ### About
 
--   `if_else()` is a vectorized if-else from **dplyr** package.
--   Returns `true` value when condition is met, `false` otherwise.
+- `if_else()` is a vectorized if-else from **dplyr** package.
+- Returns `true` value when condition is met, `false` otherwise.
 
 ### Syntax
 
@@ -331,17 +331,17 @@ if_else(x < 0, "Negative number",
 
 Create an age group classification.
 
--   Assign random age like 25.
+- Assign random age like 25.
 
--   Then, complete the nested if_else to match this classification:
+- Then, complete the nested if_else to match this classification:
 
--   Child: \<13
+- Child: \<13
 
--   Teen: 13-19
+- Teen: 13-19
 
--   Adult: 20-64
+- Adult: 20-64
 
--   Elderly: 65+
+- Elderly: 65+
 
 ### Answer
 
@@ -371,7 +371,7 @@ case_when(
 
 ### Numeric
 
--   case_when with numeric condition
+- case_when with numeric condition
 
 ```{r}
 library(dplyr)
@@ -387,7 +387,7 @@ case_when(
 
 ### String
 
--   case_when with string condition
+- case_when with string condition
 
 ```{r}
 order <- "biryani"  # Try "dosa", "paneer", or "vada"
@@ -408,17 +408,17 @@ case_when(
 
 Create a simple vital sign unit finder.
 
--   Assign `vital_sign` as "BP".
+- Assign `vital_sign` as "BP".
 
--   Then, complete the case_when to match this:
+- Then, complete the case_when to match this:
 
--   "BP" = "mmHg",
+- "BP" = "mmHg",
 
--   "HR" = "bpm",
+- "HR" = "bpm",
 
--   "TEMP" = "C",
+- "TEMP" = "C",
 
--   "RR" = "breaths/min",
+- "RR" = "breaths/min",
 
 ### Answer
 
