@@ -1,6 +1,6 @@
 ---
 title: "Data Transformation"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -8,31 +8,31 @@ editor: visual
 
 ## What is Data Transformation?
 
--   The process of changing, organizing, and analyzing data
+- The process of changing, organizing, and analyzing data
 
--   It involves filtering, selecting, sorting, summarizing data.
+- It involves filtering, selecting, sorting, summarizing data.
 
--   `dplyr` is a package in R used for data transformation
+- `dplyr` is a package in R used for data transformation
 
 ## Function I
 
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Functions                                                           | Description                                                                                                                                                                          |
-+=====================================================================+======================================================================================================================================================================================+
-| `filter()`                                                          | Selects rows based on conditions                                                                                                                                                     |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `select()`                                                          | Selects specific columns                                                                                                                                                             |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `arrange()`                                                         | Sorts rows in ascending/descending order                                                                                                                                             |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `mutate()`                                                          | Creates new columns                                                                                                                                                                  |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `summarise()`                                                       | Summarizes data using functions like `mean()`, `sum()`, etc.                                                                                                                         |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| `group_by()` \|\>                                                   | Groups data before summarization                                                                                                                                                     |
-|                                                                     |                                                                                                                                                                                      |
-| `summarise()`                                                       |                                                                                                                                                                                      |
-+---------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------+--------------------------------------------------------------+
+| Functions         | Description                                                  |
++===================+==============================================================+
+| `filter()`        | Selects rows based on conditions                             |
++-------------------+--------------------------------------------------------------+
+| `select()`        | Selects specific columns                                     |
++-------------------+--------------------------------------------------------------+
+| `arrange()`       | Sorts rows in ascending/descending order                     |
++-------------------+--------------------------------------------------------------+
+| `mutate()`        | Creates new columns                                          |
++-------------------+--------------------------------------------------------------+
+| `summarise()`     | Summarizes data using functions like `mean()`, `sum()`, etc. |
++-------------------+--------------------------------------------------------------+
+| `group_by()` \|\> | Groups data before summarization                             |
+|                   |                                                              |
+| `summarise()`     |                                                              |
++-------------------+--------------------------------------------------------------+
 
 ## Load
 
@@ -63,7 +63,7 @@ our_data |>
 
 ## Your Turn 01
 
--   Complete the following code to filter subjects who are above the age of 40 and are female.
+- Complete the following code to filter subjects who are above the age of 40 and are female.
 
 ```{r}
 our_data |> 
@@ -79,7 +79,7 @@ our_data |>
 
 ## Your Turn 02
 
--   Complete the following code to select Subject, Height and Weight from our data.
+- Complete the following code to select Subject, Height and Weight from our data.
 
 ```{r}
 
@@ -99,8 +99,8 @@ our_data |>
 
 ## Your Turn 03
 
--   Create a new variable "HEIGHT_M" to calculate the value of the HEIGHT variable (in cm) in meter.
--   Select Subject, Height and HEIGHT_M
+- Create a new variable "HEIGHT_M" to calculate the value of the HEIGHT variable (in cm) in meter.
+- Select Subject, Height and HEIGHT_M
 
 > Hint: value in meter = (value in cm)/100.
 
@@ -137,9 +137,9 @@ our_data |>
 
 Group by SITE with multiple summary statistics:
 
--   average Systolic BP,
--   maximum Diastolic BP,
--   mininum Age
+- average Systolic BP,
+- maximum Diastolic BP,
+- mininum Age
 
 ```{r}
 our_data |> 
@@ -160,7 +160,7 @@ our_data |>
 
 ## Your Turn 05
 
--   Arrange data by Height in ascending order.
+- Arrange data by Height in ascending order.
 
 ```{r}
 our_data |> 
@@ -222,8 +222,8 @@ our_data |>
 
 ## Your Turn 06
 
--   Create new variable SEXFMT.
--   Assign M as "Male" and F as "Female"
+- Create new variable SEXFMT.
+- Assign M as "Male" and F as "Female"
 
 ```{r}
 our_data |> 
@@ -244,7 +244,7 @@ our_data |>
 
 ## Case When
 
--   Age Group
+- Age Group
 
 ``` r
 0-12: Child
@@ -273,7 +273,7 @@ our_data |>
 
 ## Your Turn 07
 
--   Complete the case_when() statement to categorize BMI values according to these classifications:
+- Complete the case_when() statement to categorize BMI values according to these classifications:
 
 ``` r
 Underweight: BMI < 18.5
@@ -319,7 +319,7 @@ our_data |>
 
 ## Your Turn 08
 
--   Create distinct result for RACE variable and keep all columns.
+- Create distinct result for RACE variable and keep all columns.
 
 ```{r}
 our_data |>

@@ -1,6 +1,6 @@
 ---
 title: "Data Visualization"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -38,9 +38,9 @@ ggplot(cars) +
 
 ### About
 
--   A visual property of the objects in your plot i.e size, shape, color etc.
+- A visual property of the objects in your plot i.e size, shape, color etc.
 
--   Components of X-axis and Y-axis are defined in aesthetics.
+- Components of X-axis and Y-axis are defined in aesthetics.
 
 ### Data
 
@@ -118,9 +118,9 @@ ggplot(data = blood) +
 
 ### About
 
--   A geom is the geometrical object that a plot uses to represent data.
+- A geom is the geometrical object that a plot uses to represent data.
 
--   geom_point is the geometrical object that plots scatter plot to represent data.
+- geom_point is the geometrical object that plots scatter plot to represent data.
 
 ### Types
 
@@ -172,9 +172,9 @@ ggplot(data = blood,
 
 ## Your Turn 02
 
--   Create the line plot between average `HR` over `VISITNUM` using `vs` dataset.
--   Use `group_by` to group the records by `VISITNUM`.
--   Then `summarise` the data to find the average of the records and use the data to plot the line plot using above example code
+- Create the line plot between average `HR` over `VISITNUM` using `vs` dataset.
+- Use `group_by` to group the records by `VISITNUM`.
+- Then `summarise` the data to find the average of the records and use the data to plot the line plot using above example code
 
 ```{r}
 
@@ -191,11 +191,11 @@ ggplot(vs_ex2, aes(x = ... , y = result, group = 1)) +
 
 ### About
 
--   The algorithm used to calculate new values for a graph is called a stat, short for statistical transformation.
+- The algorithm used to calculate new values for a graph is called a stat, short for statistical transformation.
 
--   In other graphs such as scatter plot, line plot, smooth-line, new values are not computed.
+- In other graphs such as scatter plot, line plot, smooth-line, new values are not computed.
 
--   In graphs like bar chart, box plots, histograms etc, new values are computed such as counts, proportions, summary etc.
+- In graphs like bar chart, box plots, histograms etc, new values are computed such as counts, proportions, summary etc.
 
 ### Data
 
@@ -280,9 +280,9 @@ ggplot(data = demo)+
 
 Using the dataset `dm`, create a stacked bar chart that visualizes:
 
--   X-axis: RACE (showing different racial groups)
--   Fill color: SEX (showing gender distribution within each race)
--   Position: Stacked bars
+- X-axis: RACE (showing different racial groups)
+- Fill color: SEX (showing gender distribution within each race)
+- Position: Stacked bars
 
 ```{r}
 
@@ -295,7 +295,7 @@ ggplot(data = ...) +
 ## Themes
 
 | Themes | Description: |
-|----|----|
+|------------------------------------|------------------------------------|
 | theme_classic() | A classic-looking theme, with x and y axis lines and no gridlines. |
 | theme_minimal() | A minimalistic theme with no background annotations |
 | theme_grey() | Theme with a light grey background and white gridlines |
@@ -351,16 +351,16 @@ ggplot(data = demo) +
 
 Using the dataset `dm`, create a bar chart with the following specifications:
 
--   X-axis: ARMCD (study arm codes)
--   Fill color: SEX (distribution)
+- X-axis: ARMCD (study arm codes)
+- Fill color: SEX (distribution)
 
 Modify the plot to include these customizations:
 
--   Title: "Distribution of Sex by Treatment Group"
--   X-axis label: "Treatment Group"
--   Y-axis label: "Number of Participants"
--   Legend title: "Sex"
--   Theme: Apply theme_classic() for a clean look.
+- Title: "Distribution of Sex by Treatment Group"
+- X-axis label: "Treatment Group"
+- Y-axis label: "Number of Participants"
+- Legend title: "Sex"
+- Theme: Apply theme_classic() for a clean look.
 
 ```{r}
 
@@ -380,7 +380,7 @@ ggplot(data = ...) +
 ### Types
 
 | Types     | Description                                                    |
-|-----------|----------------------------------------------------------------|
+|---------------|---------------------------------------------------------|
 | Bar chart | Distribution of a categorical variable.                        |
 | Histogram | Distribution of a continuous variable.                         |
 | Box plot  | Distribution of continuous variable with box and whisker plot. |
@@ -412,11 +412,11 @@ Using the `vs` dataset, create a boxplot to compare temperature (`TEMP`) distrib
 
 Modify the plot to include these customizations:
 
--   Title: "Distribution of Temperature by Visit"
--   X-axis label: "Study Visit"
--   Y-axis label: "Temperature (°C)"
--   Fill Color: Use "lightgreen" for all boxes.
--   Theme: Apply theme_classic() for a clean look.
+- Title: "Distribution of Temperature by Visit"
+- X-axis label: "Study Visit"
+- Y-axis label: "Temperature (°C)"
+- Fill Color: Use "lightgreen" for all boxes.
+- Theme: Apply theme_classic() for a clean look.
 
 ```{r}
 

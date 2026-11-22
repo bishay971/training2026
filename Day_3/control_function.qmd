@@ -1,6 +1,6 @@
 ---
 title: "Function"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Bishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -10,8 +10,8 @@ editor: visual
 
 ### About
 
--   A set of statements which perform a specific task
--   R has a large number of in-built functions
+- A set of statements which perform a specific task
+- R has a large number of in-built functions
 
 ### Syntax
 
@@ -80,8 +80,8 @@ cat("Vector", vector)
 
 ### About
 
--   Loop repeats a specific block of code.
--   A for loop is used to iterate (repeat) over a sequence.
+- Loop repeats a specific block of code.
+- A for loop is used to iterate (repeat) over a sequence.
 
 ### Syntax
 
@@ -94,7 +94,7 @@ statement
 
 ### Example
 
--   Count the number of even numbers in a sequence.
+- Count the number of even numbers in a sequence.
 
 ```{r}
 for (i in vector) {
@@ -112,8 +112,8 @@ for (i in vector) {
 
 ### Question
 
--   Write a for loop in R that iterates over each value in a vector.
--   If value greater (\>) than 0, print the value to the console."
+- Write a for loop in R that iterates over each value in a vector.
+- If value greater (\>) than 0, print the value to the console."
 
 ### Answer
 
@@ -269,9 +269,9 @@ check(0)
 
 Create a function `calculate_ticket_price()` below determines the base price of a movie ticket based on age:
 
--   Children (age \< 13): \$5
--   Seniors (age \> 65): \$7
--   Other (age 13–65): \$10
+- Children (age \< 13): \$5
+- Seniors (age \> 65): \$7
+- Other (age 13–65): \$10
 
 ### Answer
 
@@ -291,8 +291,8 @@ Create a function `calculate_ticket_price()` below determines the base price of 
 
 ## Function's Scope
 
--   global variable is shared across the program.
--   local variable only exist in certain part of program like function.
+- global variable is shared across the program.
+- local variable only exist in certain part of program like function.
 
 ```{r}
 a <- "apple" # global variable
@@ -314,15 +314,15 @@ print(a) # print a variable
 
 ✅ **Do:**
 
--   Use **verbs** for function names (e.g., `calculate_mean()`, `filter_data()`).
+- Use **verbs** for function names (e.g., `calculate_mean()`, `filter_data()`).
 
--   Keep names **short but meaningful** (e.g., `convert_temp()` instead of `temp_conversion_function()`).
+- Keep names **short but meaningful** (e.g., `convert_temp()` instead of `temp_conversion_function()`).
 
 ❌ **Avoid:**
 
--   Vague names like `foo()` or `do_stuff()`.
+- Vague names like `foo()` or `do_stuff()`.
 
--   Overly long names (`calculate_monthly_sales_report_for_each_region()`).
+- Overly long names (`calculate_monthly_sales_report_for_each_region()`).
 
 ### Principle
 
@@ -330,13 +330,13 @@ print(a) # print a variable
 
 ✅ **Do:**
 
--   Each function should **do one thing well**.
+- Each function should **do one thing well**.
 
--   Break complex tasks into smaller functions.
+- Break complex tasks into smaller functions.
 
 ❌ **Avoid:**
 
--   Writing a single function that loads data, cleans it, analyzes it, and plots results.
+- Writing a single function that loads data, cleans it, analyzes it, and plots results.
 
 **Example:**
 
@@ -352,9 +352,9 @@ analyze_data <- function(cleaned_data) { ... }
 
 ✅ **Do:**
 
--   Define **default values** for optional arguments.
+- Define **default values** for optional arguments.
 
--   Use `NULL` as a default if the argument is optional but has no natural default.
+- Use `NULL` as a default if the argument is optional but has no natural default.
 
 **Example:**
 
@@ -371,9 +371,9 @@ calculate_discount <- function(price, discount_rate = 0.1) {
 
 ✅ **Do:**
 
--   Check for **invalid inputs** (e.g., negative numbers, wrong data types).
+- Check for **invalid inputs** (e.g., negative numbers, wrong data types).
 
--   Use `stop()`, `warning()`, or `message()` for errors.
+- Use `stop()`, `warning()`, or `message()` for errors.
 
 **Example:**
 
@@ -393,9 +393,9 @@ calculate_age <- function(birth_year) {
 
 ✅ **Do:**
 
--   Ensure the function **always returns the same type** (e.g., vector, list, or `NULL`).
+- Ensure the function **always returns the same type** (e.g., vector, list, or `NULL`).
 
--   Avoid silent failures (return `NA` with a warning if needed).
+- Avoid silent failures (return `NA` with a warning if needed).
 
 **Example:**
 
@@ -417,9 +417,9 @@ good_func <- function(x) {
 
 ✅ **Do:**
 
--   Use `roxygen2` for **formal documentation** (if sharing code).
+- Use `roxygen2` for **formal documentation** (if sharing code).
 
--   Add **inline comments** for complex logic.
+- Add **inline comments** for complex logic.
 
 **Example:**
 
@@ -440,13 +440,13 @@ calculate_discount <- function(price, discount_rate = 0.1) {
 
 ✅ **Do:**
 
--   Pass all required data as **arguments**.
+- Pass all required data as **arguments**.
 
--   Use `<-` inside functions for local variables.
+- Use `<-` inside functions for local variables.
 
 ❌ **Avoid:**
 
--   Modifying global variables (e.g., using `<<-`).
+- Modifying global variables (e.g., using `<<-`).
 
 **Example:**
 
@@ -469,9 +469,9 @@ good_func <- function(price, discount_rate = 0.1) {
 
 ✅ **Do:**
 
--   Vectorize operations (use `apply()` family or `dplyr`).
+- Vectorize operations (use `apply()` family or `dplyr`).
 
--   Avoid loops (`for`, `while`) where possible.
+- Avoid loops (`for`, `while`) where possible.
 
 **Example:**
 
@@ -497,9 +497,9 @@ fast_func <- function(x) {
 
 ✅ **Do:**
 
--   Use `testthat` for unit tests.
+- Use `testthat` for unit tests.
 
--   Test edge cases (e.g., `NA`, empty inputs).
+- Test edge cases (e.g., `NA`, empty inputs).
 
 **Example:**
 
@@ -519,5 +519,5 @@ test_that("calculate_discount works", {
 
 ✅ **Do:**
 
--   Aim for **\<20 lines** per function.
--   Split long functions into smaller helper functions.
+- Aim for **\<20 lines** per function.
+- Split long functions into smaller helper functions.

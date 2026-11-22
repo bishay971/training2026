@@ -1,6 +1,6 @@
 ---
 title: "Fundamentals of R"
-author: "R Trainer: Bishwas (linkedin.com/in/bishay971)"
+author: "R Trainer: Bishwas Adhikari(linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual

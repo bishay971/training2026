@@ -1,6 +1,6 @@
 ---
 title: "Hands on Practice"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual

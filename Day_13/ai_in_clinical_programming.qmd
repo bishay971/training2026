@@ -1,7 +1,7 @@
 ---
 title: "AI in Clinical Statistical Programming"
 subtitle: "Session 9 - From SAS to R, with AI as a Co-Pilot"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+"R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format:
   revealjs:
@@ -51,7 +51,7 @@ LLM output is a **plausible-looking answer**, not a **verified** one. Same disci
 ## SAS Mindset vs LLM Mindset
 
 | SAS habit | LLM-assisted R habit |
-|----|----|
+|------------------------------------|------------------------------------|
 | Look up PROC syntax in SAS docs | Ask LLM to draft `dplyr`/`base R` equivalent |
 | Copy a working macro as template | Ask LLM to explain unfamiliar `tidyverse` syntax |
 | Debug via `LOG` window | Ask LLM to explain an R error message |
@@ -82,7 +82,7 @@ LLM output is a **plausible-looking answer**, not a **verified** one. Same disci
 Real automation wave here isn't "AI writes code faster" - it's **"the table becomes machine-executable."** AI helps author ARS metadata and QC scripts; ARS/ARD is what makes that reusable at scale.
 :::
 
-Sources: [CDISC 360i](https://www.cdisc.org/standards/cdisc-360i) | [Analysis Results Standard](https://www.cdisc.org/standards/foundational/analysis-results-standard)
+Sources: [CDISC 360i](https://www.cdisc.org/standards/cdisc-360i) \| [Analysis Results Standard](https://www.cdisc.org/standards/foundational/analysis-results-standard)
 
 ## Example: Using AI to Bridge SAS to R
 
@@ -129,7 +129,7 @@ adsl %>%
 
 **Prompt (spec text, not code):**
 
-```
+```         
 ADaM spec row:
 Variable: CHG   Label: Change from Baseline
 Derivation: AVAL - BASE, only where AVISITN > 0 and ABLFL != 'Y'
@@ -242,7 +242,7 @@ If any box is unchecked - **do not** submit AI-touched code as final without fur
 ## Example: Safe vs Unsafe Prompting
 
 | Unsafe | Safe |
-|----|----|
+|------------------------------------|------------------------------------|
 | "Here's our ADSL with real subject IDs, find data issues" | "Here's a *mock* dataset with the same structure, find data issues" |
 | "Summarize this unblinded interim result" | "Explain how to summarize a two-arm interim result using r `gtsummary`, in general" |
 | Pasting a proprietary validation macro | Asking for a *generic* pattern, then adapting it yourself |
@@ -337,7 +337,7 @@ derive_bmi <- function(weight_kg, height_m) {
 ## SAS Mindset vs Programmer Mindset for Automation
 
 | SAS/manual mindset | Programmer mindset |
-|----|----|
+|------------------------------------|------------------------------------|
 | Copy last study's macro, hand-edit study-specific values | One **parameterized function/package** driven by a config file (YAML/CSV) per study |
 | Rerun each TLF program by hand when data refreshes | **Orchestrate** the pipeline (`targets`, Make, CI) - one trigger reruns everything in dependency order |
 | "It worked when I ran it" | **Unit tests** (`testthat`) + automated diff against last locked output |
@@ -374,7 +374,7 @@ for (i in seq_len(nrow(specs))) {
 ## Tool Landscape (2026 snapshot)
 
 | Tool | Typical use in clinical programming |
-|----|----|
+|------------------------------------|------------------------------------|
 | GitHub Copilot (RStudio/Positron/VS Code) | Inline code completion, boilerplate, unit tests |
 | Claude / ChatGPT (chat) | Explain errors, translate SAS and R logic, draft docs |
 | Company-hosted/private LLM | Safer for study-specific (non-PHI) discussions per SOP |
@@ -411,7 +411,7 @@ Always confirm which tools are **approved by your company's IT/validation policy
 ## Manager's Balancing Act
 
 | Encourage | Guard Against |
-|----|----|
+|------------------------------------|------------------------------------|
 | Faster first-drafts of R code | Skipping independent QC because "AI already checked it" |
 | Team-wide prompt libraries | Inconsistent, ungoverned tool usage |
 | AI literacy training | Sharing PHI/PII/unblinded data with public tools |

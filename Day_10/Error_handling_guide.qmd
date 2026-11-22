@@ -1,6 +1,6 @@
 ---
 title: "Error Handling Guide"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -91,7 +91,7 @@ step2 <- filter(step1, age == "Alice")
 ## ✅ 1. Common Errors in `dplyr`
 
 | **Error** | **Cause** | **How to Avoid** |
-|------------------------|-------------------------------------------------------------|------------------------|
+|-----------------|--------------------------------------|-----------------|
 | `object not found` | Referencing columns that don't exist (e.g., `mutate(SEX = sex)`) | Check `names(df)` |
 | `Error in mutate(): Problem with column` | Type mismatch or invalid operation | Use `str()` to inspect data types |
 | `group_by()` + `summarise()` drops columns unexpectedly | Grouping columns not handled properly | Add `.groups = "keep"` if needed |
@@ -100,14 +100,14 @@ step2 <- filter(step1, age == "Alice")
 ## ✅ 2. Common Errors in `tidyr`
 
 | **Error** | **Cause** | **How to Avoid** |
-|------------------------|----------------------------------------------------------------|------------------------|
+|-----------------|---------------------------------------|-----------------|
 | `pivot_longer()` fails | Overwriting existing columns or wrong column specs | Use `names_to`, `values_to` explicitly |
 | `separate()` fails | Wrong separator or inconsistent data | Use `extra = "merge"` or `fill = "right"` |
 
 ## ✅ 3. Date Manipulation Errors
 
 | **Error** | **Cause** | **How to Avoid** |
-|------------------------|---------------------------------------------------|------------------------|
+|------------------|------------------------------------|------------------|
 | `as.Date()` returns `NA` | Wrong format | Use correct `format` string (e.g., `"%d-%b-%Y"`) |
 | Time zones issues | Inconsistent date-time zone across sites | Use `lubridate::with_tz()` |
 | Arithmetic on factors | Dates stored as character or factor | Always convert: `as.Date(as.character(x))` |

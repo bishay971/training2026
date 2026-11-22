@@ -1,6 +1,6 @@
 ---
 title: "Strings and Dates"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Biishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -8,10 +8,10 @@ editor: visual
 
 ## **What are Strings?**
 
--   Sequences of characters used to represent text data
--   Text data stored as character vectors
--   To standardize (i.e format variables as per CDISC Standards)
--   Remove unwanted characters or special characters
+- Sequences of characters used to represent text data
+- Text data stored as character vectors
+- To standardize (i.e format variables as per CDISC Standards)
+- Remove unwanted characters or special characters
 
 ## Load
 
@@ -63,7 +63,7 @@ str_sub("STUDY001", start = 6, end = 8)
 
 1.  Create the `PARAM` variable by combining `TEST` and `UNIT`
 
--   Example: `PARAM` = "Weight (kg)"
+- Example: `PARAM` = "Weight (kg)"
 
 2.  Find the length of string from `PARAM`
 
@@ -92,7 +92,7 @@ str_to_title("drug safety")
 
 ## Your Turn 02
 
--   Convert string to uppercase, lowercase and title case.
+- Convert string to uppercase, lowercase and title case.
 
 ```{r}
 form <- "adverse event"
@@ -115,18 +115,18 @@ form <- "adverse event"
 
 A **regular expression (regex)** is a sequence of characters that defines a search pattern for text processing. Regex allows you to:
 
--   Match specific patterns in strings
+- Match specific patterns in strings
 
--   Extract substrings
+- Extract substrings
 
--   Replace text
+- Replace text
 
--   Validate formats (e.g., patient IDs, dates)
+- Validate formats (e.g., patient IDs, dates)
 
 ### Category
 
 | **Category**      | **Regex Pattern** | **Matches**                         |
-|:------------------|:------------------|:---------------------------------|
+|:------------------|:------------------|:--------------------------------|
 | **Digits**        | `[[:digit:]]`     | Any digit (0–9)                     |
 | **Letters**       | `[[:alpha:]]`     | Alphabetic characters               |
 | **Alphanumeric**  | `[[:alnum:]]`     | Letters + numbers                   |
@@ -258,7 +258,7 @@ str_squish(string)
 
 ## Your Turn 05
 
--   Remove whitespace in patient comments (newlines, tabs, multiple spaces).
+- Remove whitespace in patient comments (newlines, tabs, multiple spaces).
 
 ```{r}
 comments <- c(
@@ -274,8 +274,8 @@ comments <- c(
 
 ## What are Dates?
 
--   Dates are stored as Date objects in R (number of days since 1970-01-01)
--   Time is stored as POSIXct (seconds since 1970-01-01)
+- Dates are stored as Date objects in R (number of days since 1970-01-01)
+- Time is stored as POSIXct (seconds since 1970-01-01)
 
 ## Date formats
 
@@ -390,7 +390,7 @@ BRTHDTC <- c("1990-05-15", "1985-12-20")
 
 ### Example 1
 
--   Unknown month ("2023-UN-15" → "2023")
+- Unknown month ("2023-UN-15" → "2023")
 
 ```{r}
 un_month <- "2023-UN-15"
@@ -401,7 +401,7 @@ partial_month
 
 ### Example 2
 
--   Unknown day ("2023-06-UN" → "2023-06")
+- Unknown day ("2023-06-UN" → "2023-06")
 
 ```{r}
 un_day <- "2023-06-UN"
@@ -413,7 +413,7 @@ partial_day
 ## Date Imputation
 
 | **Example Input** | **Imputation Rule**                  | **Imputed Output** |
-|:-----------------|:---------------------------------|:------------------|
+|:------------------|:---------------------------------|:-------------------|
 | `"1990"`          | Add `-01-01` (Jan 1st)               | `"1990-01-01"`     |
 | `"2005-08"`       | Add `-01` (1st day of month)         | `"2005-08-01"`     |
 | `"1988-12-25"`    | **No imputation** (already complete) | `"1988-12-25"`     |

@@ -1,6 +1,6 @@
 ---
 title: "Data Structures"
-author: "R Trainer: Binod Jung Bogati (linkedin.com/in/bjungbogati)"
+author: "R Trainer: Bishwas Adhikari (linkedin.com/in/bishay971)"
 copyright: "© 2025. Unauthorized distribution or reuse prohibited."
 format: html
 editor: visual
@@ -11,7 +11,7 @@ editor: visual
 Data Structure is a collection of data types in an organized way.
 
 | Type | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | Vector | A one-dimensional structure having same data type |
 | List | Similar to vector but can contain items of different types |
 | Data frame | A two-dimensional structure, but each columns can have different data types. |
@@ -20,16 +20,16 @@ Data Structure is a collection of data types in an organized way.
 
 ### About
 
--   A one-directional structure having same data type.
+- A one-directional structure having same data type.
 
--   It is created using **c()** function. 
+- It is created using **c()** function. 
 
--   Comma (,) is used to separate vector elements
+- Comma (,) is used to separate vector elements
 
-    **Key Properties:**
+  **Key Properties:**
 
-    -   Homogeneous (all elements must be of the same type).
-    -   Index count starting from `1`
+  - Homogeneous (all elements must be of the same type).
+  - Index count starting from `1`
 
 ### Types
 
@@ -128,7 +128,7 @@ c(1, 2, 3) + c(10, 20)
 
 ### Length
 
--   Use `length()` to get the number of elements.
+- Use `length()` to get the number of elements.
 
 ```{r}
 
@@ -227,19 +227,19 @@ prices <- c(12.5, 9.8, 15.3, 10.0, 7.5)
 
 ### About
 
--   Lists are **ordered collections** that can contain elements of **different types**
+- Lists are **ordered collections** that can contain elements of **different types**
 
--   They can hold vectors, even other lists etc
+- They can hold vectors, even other lists etc
 
--   Created using `list()` function
+- Created using `list()` function
 
 **Key Features:**
 
--   Heterogeneous (mixed data types)
+- Heterogeneous (mixed data types)
 
--   Can be nested (lists within lists)
+- Can be nested (lists within lists)
 
--   Elements can be named
+- Elements can be named
 
 ### Simple list
 
@@ -264,11 +264,11 @@ person <- list(
 
 1.  Create a named list `car` with:
 
-    -   `model = "Toyota"`
+    - `model = "Toyota"`
 
-    -   `year = 2020`
+    - `year = 2020`
 
-    -   `features = c("AC", "GPS", "Bluetooth")`
+    - `features = c("AC", "GPS", "Bluetooth")`
 
 ### Answer
 
